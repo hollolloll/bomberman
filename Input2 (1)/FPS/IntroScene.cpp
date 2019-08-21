@@ -10,7 +10,7 @@ IntroScene::IntroScene(class SceneManager* a_pParent) : Scene(a_pParent)
 
 IntroScene::~IntroScene() {}
 
-eScene IntroScene::GetScene()
+eScene IntroScene::GetScene() const
 {
 	return eScene::Intro;
 }
@@ -23,12 +23,9 @@ void IntroScene::Update(float a_fDeltaTime)
 	}
 }
 
-
-
 void IntroScene::Render()
 {
 	SetCursor(0, 0);
 	cout << "Intro Scene" << endl;
 	cout << "Press Any Key" << endl;
 }
-

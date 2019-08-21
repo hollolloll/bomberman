@@ -10,7 +10,15 @@ GameOverScene::~GameOverScene()
 {
 }
 
-eScene GameOverScene::GetScene()
+eScene GameOverScene::GetScene() const
 {
 	return eScene::GameOver;
+}
+
+void GameOverScene::Update(float a_fDeltaTime)
+{
+}
+
+void GameOverScene::Render()
+{
 }

@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "Application.h"
 #include <ctime>
+#include <cstdlib>
 
 #include "SceneManager.h"
+#include "GameManager.h"
 
 constexpr float Application::GetTargetFPS()
 {
@@ -12,11 +14,17 @@ constexpr float Application::GetTargetFPS()
 
 Application::Application()
 {
+	SetConsoleSize(1400, 1200);
+	SetCursorType(CURSOR_TYPE::NOCURSOR);
+	srand(time(0));
+
 	InitSceneMng();
+	InitGameMng();
 }
 
 Application::~Application()
 {
+	ReleaseGameMng();
 	ReleaseSceneMng();
 }
 

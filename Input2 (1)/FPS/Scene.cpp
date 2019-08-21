@@ -17,4 +17,3 @@ Scene::~Scene()
 void Scene::Init() { }
 void Scene::Update(float a_fDeltaTime) { }
 void Scene::Render() { }
-

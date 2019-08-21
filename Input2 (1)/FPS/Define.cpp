@@ -16,8 +16,7 @@ void SetCursorType(CURSOR_TYPE c)
 {
 	CONSOLE_CURSOR_INFO CurInfo;
 
-	switch (c)
-	{
+	switch (c) {
 	case CURSOR_TYPE::NOCURSOR:
 		CurInfo.dwSize = 1;
 		CurInfo.bVisible = false;
@@ -31,6 +30,11 @@ void SetCursorType(CURSOR_TYPE c)
 		CurInfo.bVisible = true;
 		break;
 	}
-
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &CurInfo);
+}
+
+void SetConsoleSize(int a_nWidth, int a_nHeight, int a_nX, int a_nY)
+{
+	HWND console = GetConsoleWindow();
+	MoveWindow(console, a_nX, a_nY, a_nWidth, a_nHeight, TRUE);
 }

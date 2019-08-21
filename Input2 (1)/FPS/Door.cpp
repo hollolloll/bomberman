@@ -3,8 +3,27 @@
 
 #include "GameManager.h"
 
-Door::Door(int x, int y) : Object(x,y){}
-Door::~Door(){}
+Door::Door(int x, int y) : Object(x, y)
+, m_Close{
+			{ 'X', '-', '-', '-', 'X' },
+			{ '|', 'X', ' ', 'X', '|' },
+			{ '|', ' ', 'X', ' ', '|' },
+			{ '|', 'X', ' ', 'X', '|' },
+			{ 'X', '-', '-', '-', 'X' },
+}
+, m_Open{
+			{ ' ', '1', '1', '1', ' ' },
+			{ '1', ' ', ' ', ' ', '1' },
+			{ '1', ' ', ' ', ' ', '1' },
+			{ '1', ' ', ' ', ' ', '1' },
+			{ ' ', '1', '1', '1', ' ' },
+} {
+	m_pNowAni = &m_Close;
+}
+
+Door::~Door()
+{
+}
 
 eObjectType Door::GetObjectType() const
 {

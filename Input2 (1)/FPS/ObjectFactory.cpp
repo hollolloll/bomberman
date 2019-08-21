@@ -10,7 +10,7 @@
 #include "Player.h"
 
 
-Object* ObjectFactory::make(eObjectType a_eType, int x, int y)
+Object* ObjectFactory::Make(eObjectType a_eType, int x, int y)
 {
 	Object* pReturn = nullptr;
 	switch (a_eType)

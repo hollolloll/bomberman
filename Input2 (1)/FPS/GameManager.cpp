@@ -6,10 +6,9 @@
 #include "Player.h"
 #include "ObjectFactory.h"
 
-
 CharacterData::CharacterData()
 {
-	fMoveSpeed = GameManager::MoveSpeed;
+	fMoveSeepd = GameManager::MoveSpeed;
 	fBombTime = GameManager::BombTime;
 	nBombPower = GameManager::BombBasePower;
 	nBombCount = GameManager::BombBaseCount;
@@ -18,17 +17,18 @@ CharacterData::CharacterData()
 GameManager::GameManager() {}
 GameManager::~GameManager()
 {
-	for (auto* pObj : m_vcObj)
-	{
-		SAFE_DELETE(pObj);
-	}
-
+	ClearObject();
 	SAFE_DELETE(m_pPlayer);
 }
 
 void GameManager::Init()
 {
 	MapData::Init();
+}
+
+void GameManager::Release()
+{
+	MapData::Release();
 }
 
 void GameManager::GameInit()
@@ -53,30 +53,32 @@ void GameManager::StageStart()
 	const std::string& sRef = m_refMap->mapOriginData;
 	m_pMap = m_refMap->pMap;
 
+	// ∏  ¡¶¿€
 	for (int y = 0; y < nHeight; ++y)
 	{
 		for (int x = 0; x < nWidth; ++x)
 		{
 			int nIndex = y * nWidth + x;
-			eObjectType eType = (eObjectType)(sRef[nIndex] - '0');
+			eObjectType eType = MapData::DataToObjectType(sRef[nIndex]);
 
 			if (eType == eObjectType::None) { continue; }
 
-			if (eType == eObjectType::Player&& m_pPlayer != nullptr)
+			if (eType == eObjectType::Player && m_pPlayer != nullptr)
 			{
 				m_pPlayer->SetPos(x, y);
 				m_pPlayer->SetMap(m_pMap);
 				continue;
 			}
 
-			auto pObj = ObjectFactory::make(eType, x, y);
+			auto* pObj = ObjectFactory::Make(eType, x, y);
 			if (eType == eObjectType::Player)
 			{
 				m_pPlayer = static_cast<Player*>(pObj);
 			}
 			else
 			{
-				m_vcObj.push_back(pObj);
+				int nLevel = (int)eType / (int)eObjectType::LevelGap;
+				m_vcObj[nLevel - 1].push_back(pObj);
 			}
 
 			pObj->SetMap(m_pMap);
@@ -86,19 +88,25 @@ void GameManager::StageStart()
 
 void GameManager::ClearObject()
 {
-	for (auto obj : m_vcObj)
+	for (auto& vc : m_vcObj)
 	{
-		SAFE_DELETE(obj);
-	}
+		for (auto* pObj : vc)
+		{
+			SAFE_DELETE(pObj);
+		}
 
-	m_vcObj.clear();
+		vc.clear();
+	}
 }
 
 void GameManager::Update(float a_fDeltaTime)
 {
-	for (auto obj : m_vcObj)
+	for (auto& vc : m_vcObj)
 	{
-		obj->Update(a_fDeltaTime);
+		for (auto* pObj : vc)
+		{
+			pObj->Update(a_fDeltaTime);
+		}
 	}
 
 	m_pPlayer->Update(a_fDeltaTime);
@@ -106,39 +114,59 @@ void GameManager::Update(float a_fDeltaTime)
 
 void GameManager::Render()
 {
-	SetCursor(0, 0);
+	for (auto& vc : m_vcObj)
+	{
+		for (auto* pObj : vc)
+		{
+			pObj->Render();
+		}
+	}
+
+	m_pPlayer->Render();
 	m_refMap->Render();
 }
 
 void GameManager::RemoveObject(class Object* a_pObj)
 {
-	auto itor = std::find_if(std::begin(m_vcObj), std::end(m_vcObj), [=](Object*p) {return p == a_pObj; });
-	assert(itor != m_vcObj.end());
-	m_vcObj.erase(itor);
+	eObjectType eType = a_pObj->GetObjectType();
+
+	int nLevelIndex = (int)eType / (int)eObjectType::LevelGap;
+	nLevelIndex -= 1; // ¿Œµ¶Ω∫
+
+	auto& vc = m_vcObj[nLevelIndex];
+
+	auto itor = std::find_if(std::begin(vc), std::end(vc), [a_pObj](Object*p) {return p == a_pObj; });
+	assert(itor != vc.end());
+	vc.erase(itor);
 }
 
-void GameManager::DropItem(Object* a_pObj) {}
+void GameManager::DropItem(Object* a_pObj)
+{
+
+}
 
 void GameManager::ObtainItem(eItem a_eItem)
 {
 	switch (a_eItem)
 	{
-	case eItem::PowerUP:
+	case eItem::PowerUp:
 		m_stPlayerData.nBombPower += 1;
 		break;
 	case eItem::BombCount:
 		m_stPlayerData.nBombCount += 1;
 		break;
 	case eItem::SpeedUp:
-		m_stPlayerData.fMoveSpeed += 1;
+		m_stPlayerData.fMoveSeepd += 1;
 		break;
 	default:
 		assert(false && "arg error");
 		break;
 	}
+
 }
+
 #include "Bomb.h"
-void GameManager::GetBobData(Bomb* a_refBomb) const
+void GameManager::GetBombData(Bomb* a_refBomb) const
 {
 	a_refBomb->m_fLifeTime = m_stPlayerData.fBombTime;
 	a_refBomb->m_nExplosiveRange = m_stPlayerData.nBombPower;

@@ -9,12 +9,11 @@ public:
 	Scene(SceneManager * a_pParent);
 	virtual ~Scene();
 
-	virtual eScene GetScene() = 0;
+	virtual eScene GetScene() const = 0;
 
 	virtual void Init();
 	virtual void Update(float a_fDeltaTime);
 	virtual void Render();
-	
 
 protected:
 
@@ -27,7 +26,6 @@ protected:
 	{
 		return m_refParent->GetKeyState(a_eKey) == eInputState::Up;
 	}
-
 
 public:
 

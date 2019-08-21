@@ -4,8 +4,19 @@
 #include "GameManager.h"
 
 
-Bomb::Bomb(int x, int y) : Object(x, y) {}
-Bomb::~Bomb(){}
+Bomb::Bomb(int x, int y) : Object(x, y)
+, m_Data{
+	{ '1', '1', '1', '1', '1' },
+	{ '1', 'B', 'B', 'B', '1' },
+	{ '1', 'B', 'B', 'B', '1' },
+	{ '1', 'B', 'B', 'B', '1' },
+	{ '1', '1', '1', '1', '1' },
+}
+{
+	m_pNowAni = &m_Data;
+}
+
+Bomb::~Bomb() { }
 
 eObjectType Bomb::GetObjectType() const
 {
@@ -14,20 +25,22 @@ eObjectType Bomb::GetObjectType() const
 
 void Bomb::Init()
 {
-	GameMng()->GetBobData(this);
+	GameMng()->GetBombData(this);
 }
 
-void Bomb::Update(float a_fDelta)
+void Bomb::_Update(float a_fDelta)
 {
 	m_fLifeTime -= a_fDelta;
 
 	if (m_fLifeTime <= 0.0f)
 	{
-		//Bomb!
+		// Bomb!
 	}
 }
 
 void Bomb::Explosived(Bomb* a_refBomb)
 {
 	if (a_refBomb == this) { return; }
+
+	// Bomb!
 }
