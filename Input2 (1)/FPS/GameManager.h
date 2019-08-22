@@ -58,27 +58,40 @@ public:
 		BombBaseCount = 1,	// 최초 폭탄 설치 갯수
 	};
 
+	enum class eGameState
+	{
+		None,
+
+		Run,
+		End,
+	};
+
 	void Init();
 	void Release();
 
 	void GameInit();
 	void StageStart();
+	void StageEnd();
 
 	void Update(float a_fDeltaTime);
 	void Render();
 
 	void ClearObject();
+	void CreateObject(eObjectType a_eObjType, int x, int y);
 
 	// 상호작용
 	void RemoveObject(class Object* a_pObj);
 	void DropItem(class Object* a_pObj);
 	void GetBombData(class Bomb* a_refBomb) const;
 	void ObtainItem(eItem a_eItem);
+	void Die(class Object* a_refObj);
+	bool AddBomb(int a_nPlayerX, int a_nPlayerY);
+	void ResistExplosion(int a_nBombX, int a_nBombY, int a_nPower);
 
 private:
 
 	// 오브젝트
-	std::vector<class Object*> m_vcObj[(int)eObjectType::LevelMax];
+	std::array<std::vector<class Object*>, (int)eObjectType::RenderDepthCount> m_arrObj;
 	class Player* m_pPlayer = nullptr;
 
 	// 스테이지 정보
@@ -96,6 +109,12 @@ private:
 
 	// 현재 플레이어 데이터
 	CharacterData m_stPlayerData;
+
+	// 게임 상태
+	eGameState	m_eState = eGameState::None;
+
+	// 로그
+	std::string m_sLog = "";
 };
 
 

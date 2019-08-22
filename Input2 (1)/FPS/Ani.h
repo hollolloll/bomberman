@@ -24,6 +24,6 @@ public:
 	int m_nCut = 0;
 	float m_fNowTile = 0;
 
-	inline static const float a_fCutTime = 0.3f;
+	inline static const float a_fCutTime = 0.2f;
 };
 

@@ -9,9 +9,12 @@ public:
 
 	// Object을(를) 통해 상속됨
 	virtual eObjectType GetObjectType() const override;
-	virtual void Interaction(class Hero* a_refHero) override;
+	virtual bool Interaction(class Player* a_refHero) override;
+
+	virtual void _PreUpdate(float a_fDelta) override;
+	virtual bool _Update(float a_fDelta) override;
 
 	eItem m_eType = eItem::None;
-	RenderTile m_Item[(int)eItem::Max];
+	class Ani* m_pAni = nullptr;
 };
 

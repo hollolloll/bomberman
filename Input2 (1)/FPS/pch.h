@@ -5,9 +5,9 @@
 #include <vector>
 #include <cassert>
 #include <Windows.h>
+#include <array>
 
 #include <string>
-#include <ctime>
 #include <queue>
 #include <ctime>
 

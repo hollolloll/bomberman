@@ -411,7 +411,7 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">2856</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">612</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">261</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">412</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">133</XPD:ATTR>
 <XPD:REF name="Model">YBRnrU8VBki4M0UUGBa0OwAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="9OdmlqdgnkeGU7eu7kJXogAA">
@@ -471,7 +471,7 @@
 <XPD:OBJ name="OwnedViews[14]" type="UMLDependencyView" guid="/hbyOuIldU2VfwsdMmWS0AAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">2993,848;2989,744</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">3018,848;3044,744</XPD:ATTR>
 <XPD:REF name="Model">G/wDDjrkgEG+fBA1l9XLAAAA</XPD:REF>
 <XPD:REF name="Head">x+kDmGnh0U+On5hKSBz8PwAA</XPD:REF>
 <XPD:REF name="Tail">4HTI/vgKnUiraGClDrL4jQAA</XPD:REF>
@@ -1116,7 +1116,7 @@
 <XPD:OBJ name="OwnedViews[33]" type="UMLAssociationView" guid="LXzx7orOXk6rqIYbu/8ErQAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">2856,623;2487,466</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">2888,612;2487,459</XPD:ATTR>
 <XPD:REF name="Model">jUjU1bidCkGRlbW84Z1IjAAA</XPD:REF>
 <XPD:REF name="Head">iERiqXJJ1kuvIzlNt2/HWwAA</XPD:REF>
 <XPD:REF name="Tail">x+kDmGnh0U+On5hKSBz8PwAA</XPD:REF>
@@ -2277,13 +2277,12 @@
 <XPD:REF name="Associations[0]">H8eW+4DyKk6f8HlULuF5lAAA</XPD:REF>
 <XPD:ATTR name="#Attributes" type="integer">3</XPD:ATTR>
 <XPD:OBJ name="Attributes[0]" type="UMLAttribute" guid="zAOBNmyaC0Kui35yMt5QEgAA">
-<XPD:ATTR name="Name" type="string">std</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">:vector&lt;class Object*&gt; m_vcObj</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">array&lt;vector&lt;class Object*&gt;, (int)eObjectType</XPD:ATTR>
+<XPD:ATTR name="TypeExpression" type="string">:RenderDepthCount&gt; m_arrObj</XPD:ATTR>
 <XPD:REF name="Owner">YBRnrU8VBki4M0UUGBa0OwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Attributes[1]" type="UMLAttribute" guid="lLBnZv2iD0i/MprwVa+krwAA">
-<XPD:ATTR name="Name" type="string">class MapData* m_refMap</XPD:ATTR>
-<XPD:ATTR name="InitialValue" type="string">nullptr</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">queue&lt;class Bomb*&gt; m_qBomb;</XPD:ATTR>
 <XPD:REF name="Owner">YBRnrU8VBki4M0UUGBa0OwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Attributes[2]" type="UMLAttribute" guid="8PBPJPfBlUaCjwNr+NOKeQAA">
@@ -2309,20 +2308,16 @@
 <XPD:REF name="Specializations[3]">WVMwnvSMQE2yGa7mIdSSLgAA</XPD:REF>
 <XPD:REF name="Specializations[4]">A/0EdHu4hEaGa2Q6h0knpAAA</XPD:REF>
 <XPD:REF name="Specializations[5]">4RATA5kxeES6q+u3XXsSjAAA</XPD:REF>
-<XPD:ATTR name="#Operations" type="integer">6</XPD:ATTR>
-<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="V+l7zWRHBUy15IlcKenihgAA">
-<XPD:ATTR name="Name" type="string">virtual ~Object</XPD:ATTR>
-<XPD:REF name="Owner">U/vpOpgqKE6+HybnICsXywAA</XPD:REF>
-</XPD:OBJ>
-<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="ruT+Zk93ukGM1T+FaBCZ5QAA">
+<XPD:ATTR name="#Operations" type="integer">5</XPD:ATTR>
+<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="ruT+Zk93ukGM1T+FaBCZ5QAA">
 <XPD:ATTR name="Name" type="string">virtual eObjectType GetObjectType</XPD:ATTR>
 <XPD:REF name="Owner">U/vpOpgqKE6+HybnICsXywAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Operations[2]" type="UMLOperation" guid="Lq7cTGLQ1k60QWCo5ua9LwAA">
+<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="Lq7cTGLQ1k60QWCo5ua9LwAA">
 <XPD:ATTR name="Name" type="string">virtual void Init</XPD:ATTR>
 <XPD:REF name="Owner">U/vpOpgqKE6+HybnICsXywAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Operations[3]" type="UMLOperation" guid="IW9zNHIzHE2yUrpVJMWF4gAA">
+<XPD:OBJ name="Operations[2]" type="UMLOperation" guid="IW9zNHIzHE2yUrpVJMWF4gAA">
 <XPD:ATTR name="Name" type="string">virtual void Explosived</XPD:ATTR>
 <XPD:REF name="Owner">U/vpOpgqKE6+HybnICsXywAA</XPD:REF>
 <XPD:ATTR name="#Parameters" type="integer">1</XPD:ATTR>
@@ -2331,7 +2326,7 @@
 <XPD:REF name="BehavioralFeature">IW9zNHIzHE2yUrpVJMWF4gAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="Operations[4]" type="UMLOperation" guid="oqnKOertb0GfkwmDyOKHJAAA">
+<XPD:OBJ name="Operations[3]" type="UMLOperation" guid="oqnKOertb0GfkwmDyOKHJAAA">
 <XPD:ATTR name="Name" type="string">virtual void Interaction</XPD:ATTR>
 <XPD:REF name="Owner">U/vpOpgqKE6+HybnICsXywAA</XPD:REF>
 <XPD:ATTR name="#Parameters" type="integer">1</XPD:ATTR>
@@ -2340,7 +2335,7 @@
 <XPD:REF name="BehavioralFeature">oqnKOertb0GfkwmDyOKHJAAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="Operations[5]" type="UMLOperation" guid="e0IeFDxVCUeE0gDfWKq8XwAA">
+<XPD:OBJ name="Operations[4]" type="UMLOperation" guid="e0IeFDxVCUeE0gDfWKq8XwAA">
 <XPD:ATTR name="Name" type="string">virtual Rect GetRendertRect</XPD:ATTR>
 <XPD:REF name="Owner">U/vpOpgqKE6+HybnICsXywAA</XPD:REF>
 </XPD:OBJ>

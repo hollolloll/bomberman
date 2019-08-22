@@ -1,7 +1,7 @@
 #pragma once
 #include "Object.h"
-class Wall :
-	public Object
+
+class Wall : public Object
 {
 public:
 	Wall(int x, int y);
@@ -9,7 +9,6 @@ public:
 
 	// Object을(를) 통해 상속됨
 	virtual eObjectType GetObjectType() const override;
-
-	RenderTile m_Data;
+	RenderTile	m_Data;
 };
 
