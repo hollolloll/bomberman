@@ -5,6 +5,8 @@
 
 #include "SceneFactory.h"
 
+eInputState SceneManager::m_KeyState[(int)eKey::Max] = {};
+
 SceneManager::SceneManager()
 {
 	int nIndex = 0;
@@ -58,6 +60,11 @@ void SceneManager::Update(float a_fDeltaTime)
 void SceneManager::Render()
 {
 	m_pNowScene->Render();
+}
+
+void SceneManager::PostRender()
+{
+	m_pNowScene->PostRender();
 }
 
 void SceneManager::KeyCheck()

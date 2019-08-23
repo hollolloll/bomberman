@@ -112,7 +112,7 @@ public:
 
 private:
 
-	void CreateExplosionRecursive(eDir a_eDir, int nBombX, int BombY, int a_nRemainPow);
+	void CreateExplosionRecursive(eDir a_eDir, int nBombX, int nBombY, int a_nRemainPow);
 	bool FindObject_withPosition(eObjectType a_eObj, int x, int y);
 private:
 

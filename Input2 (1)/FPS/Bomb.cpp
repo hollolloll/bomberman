@@ -100,16 +100,25 @@ bool Bomb::_Update(float a_fDelta)
 	if (m_fLifeTime <= 0.0f)
 	{
 		COORD c = rt.Center();
-		GameMng()->ResistExplosion(this, rt.x,rt.y, m_nExplosiveRange);
+		GameMng()->ResistExplosion(this, rt.x, rt.y, m_nExplosiveRange);
+
+		std::string s = "Explosion Pos : ";
+		s += std::to_string(c.X);
+		s += " /// ";
+		s += std::to_string(c.Y);
+		s += "\n";
+		GameMng()->m_sLog += s;
+		
 		return true;
 	}
 
 	return false;
 }
 
-void Bomb::Explosived(Bomb* a_refBomb)
+bool Bomb::Explosived()
 {
-	if (a_refBomb == this) { return; }
+	GameMng()->ResistExplosion(this, rt.x, rt.y, m_nExplosiveRange);
 
+	return true;
 	// Bomb!
 }

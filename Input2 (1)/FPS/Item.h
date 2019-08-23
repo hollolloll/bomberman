@@ -11,6 +11,8 @@ public:
 	virtual eObjectType GetObjectType() const override;
 	virtual bool Interaction(class Player* a_refHero) override;
 
+	virtual bool CanMove() const override;
+
 	virtual void _PreUpdate(float a_fDelta) override;
 	virtual bool _Update(float a_fDelta) override;
 

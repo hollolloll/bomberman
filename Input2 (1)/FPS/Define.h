@@ -169,18 +169,19 @@ struct RenderTile
 
 };
 
+// 오브젝트 충돌처리용, 좌상단 0, 0기준
 struct Rect
 {
 	float x;
 	float y;
-	float w;
-	float h;
+	float w; // width;
+	float h; // height;
 
-	bool IsCross(const Rect& rt)
+	bool IsCross(const Rect& rt) const
 	{
 		if ((x >= rt.x + rt.w) ||
 			(x + w <= rt.x) ||
-			(y >= rt.y + h) ||
+			(y >= rt.y + rt.h) ||
 			(y + h <= rt.y))
 		{
 			return false;
@@ -189,7 +190,7 @@ struct Rect
 		return true;
 	}
 
-	bool IsIn(int _x, int _y)
+	bool IsIn(int _x, int _y) const
 	{
 		if ((x <= _x) && (_x <= x + w) &&
 			(y <= _y) && (_y <= y + h))
@@ -200,8 +201,8 @@ struct Rect
 		return false;
 	}
 
-	COORD Center()
+	COORD Center() const
 	{
-		return COORD{ (short)(x + w / 2),(short)(y + h / 2) };
+		return COORD{ (short)(x + w / 2), (short)(y + h / 2) };
 	}
 };

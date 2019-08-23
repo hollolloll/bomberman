@@ -25,11 +25,29 @@ eObjectType Monster::GetObjectType() const
 	return eObjectType::Monster;
 }
 
+bool Monster::CanMove() const
+{
+	return true;
+}
+
 bool Monster::Interaction(Player* a_refHero)
 {
 	if (IsCross(a_refHero) == true)
 	{
 		GameMng()->Die(this);
+	}
+
+	return false;
+}
+
+bool Monster::Explosived()
+{
+	--m_nLife;
+
+	if (m_nLife <= 0)
+	{
+		GameMng()->AddScore(MonsterScore);
+		return true;
 	}
 
 	return false;

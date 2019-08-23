@@ -8,6 +8,7 @@
 #include "Bomb.h"
 #include "Monster.h"
 #include "Player.h"
+#include "Explosion.h"
 
 
 Object* ObjectFactory::Make(eObjectType a_eType, int x, int y)
@@ -22,6 +23,7 @@ Object* ObjectFactory::Make(eObjectType a_eType, int x, int y)
 		case eObjectType::Bomb: {pReturn = new Bomb(x, y); }break;
 		case eObjectType::Monster: {pReturn = new Monster(x, y); }break;
 		case eObjectType::Player: {pReturn = new Player(x, y); }break;
+		case eObjectType::Explosion: {pReturn = new Explosion(x, y); }break;
 	}
 
 	assert(pReturn != nullptr);
