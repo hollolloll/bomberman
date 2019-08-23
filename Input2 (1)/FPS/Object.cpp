@@ -25,7 +25,8 @@ Object::~Object()
 
 void Object::Init() { }
 
-void Object::Explosived(class Bomb* a_refBomb) { }
+bool Object::CanMove() const { return false; }
+bool Object::Explosived() { }
 bool Object::Interaction(class Player* a_refHero) { return false; }
 void Object::_PreUpdate(float a_fDelta) {}
 bool Object::_Update(float a_fDelta) { return false; }

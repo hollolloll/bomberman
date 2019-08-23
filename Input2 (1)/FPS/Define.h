@@ -27,6 +27,14 @@ enum class eKey
 	Max,
 };
 
+enum class eDir
+{
+	Left,
+	Top,
+	Right,
+	Bottom,
+};
+
 enum class eInputState : short
 {
 	None	= 0b00,
@@ -61,10 +69,12 @@ enum class eObjectType
 	Box = RenderDepth2 + 1,
 	Door,
 	Item, 
-	Bomb,
+	
 
 	Player = RenderDepth3 + 1,
 	Monster,
+	Explosion,
+	Bomb,
 
 };
 

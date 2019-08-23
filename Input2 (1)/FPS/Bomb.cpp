@@ -74,7 +74,10 @@ Bomb::Bomb(int x, int y) : Object(x, y), m_pAni(new Ani())
 	m_pAni->SetState(0);
 	m_pNowAni = m_pAni->Get();
 }
-Bomb::~Bomb() { }
+Bomb::~Bomb() 
+{
+	SAFE_DELETE(m_pAni);
+}
 
 eObjectType Bomb::GetObjectType() const
 {
@@ -83,7 +86,7 @@ eObjectType Bomb::GetObjectType() const
 
 void Bomb::Init()
 {
-	GameMng()->GetBombData(this);
+	GameMng()->GetBombData(OUT this);
 }
 
 bool Bomb::_Update(float a_fDelta)
@@ -97,7 +100,7 @@ bool Bomb::_Update(float a_fDelta)
 	if (m_fLifeTime <= 0.0f)
 	{
 		COORD c = rt.Center();
-		GameMng()->ResistExplosion(c.X, c.Y);
+		GameMng()->ResistExplosion(this, rt.x,rt.y, m_nExplosiveRange);
 		return true;
 	}
 

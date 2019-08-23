@@ -10,6 +10,23 @@ struct CharacterData
 	CharacterData();
 };
 
+struct Explosion
+{
+	int x;
+	int y;
+	int pow;
+
+	Explosion(int _x, int _y, int _pow) : x(_x), y(_y), pow(_pow){}
+};
+
+struct CreateObj
+{
+	int x;
+	int y;
+	eObjectType type;
+	CreateObj(int _x, int _y, eObjectType _type) : x(_x), y(_y), type(_type){}
+};
+
 class GameManager
 {
 #pragma region SINGLE_TON
@@ -66,6 +83,7 @@ public:
 		End,
 	};
 
+public:
 	void Init();
 	void Release();
 
@@ -75,19 +93,27 @@ public:
 
 	void Update(float a_fDeltaTime);
 	void Render();
+	void PostRender();
 
 	void ClearObject();
-	void CreateObject(eObjectType a_eObjType, int x, int y);
+	class Object* CreateObject(eObjectType a_eObjType, int x, int y);
 
 	// 상호작용
 	void RemoveObject(class Object* a_pObj);
 	void DropItem(class Object* a_pObj);
-	void GetBombData(class Bomb* a_refBomb) const;
+	void GetBombData(OUT class Bomb* a_refBomb) const;
 	void ObtainItem(eItem a_eItem);
 	void Die(class Object* a_refObj);
-	bool AddBomb(int a_nPlayerX, int a_nPlayerY);
-	void ResistExplosion(int a_nBombX, int a_nBombY, int a_nPower);
+	class Object* AddBomb(int a_nPlayerX, int a_nPlayerY);
+	void ResistExplosion(Object* a_refBomb,int x, int y, int Pow);
+	bool MoveCheck(class Object* a_pMoveIgnoreObject = nullptr);
+	void CheckExplosion(Object* a_refExplosion);
+	void AddScore(int a_nScore);
 
+private:
+
+	void CreateExplosionRecursive(eDir a_eDir, int nBombX, int BombY, int a_nRemainPow);
+	bool FindObject_withPosition(eObjectType a_eObj, int x, int y);
 private:
 
 	// 오브젝트
@@ -104,14 +130,20 @@ private:
 	int m_nNowLife = 0;		// 플레이어 라이프
 	int m_nScore = 0;		// 점수
 
+	std::vector<class Object*> m_vcDelete;
+
+	std::vector<CreateObj> m_vcCreate;
+
 	// 폭발
-	std::queue<class Bomb*> m_qBomb;
+	std::vector<Explosion> m_vcExplision;
 
 	// 현재 플레이어 데이터
 	CharacterData m_stPlayerData;
 
 	// 게임 상태
 	eGameState	m_eState = eGameState::None;
+
+public:
 
 	// 로그
 	std::string m_sLog = "";

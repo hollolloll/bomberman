@@ -41,6 +41,11 @@ void Player::SetStat(struct CharacterData* a_pStat)
 	m_nPutBombCount = 0;
 }
 
+void Player::_PreUpdate(float a_fDelta)
+{
+	RenderClear();
+}
+
 bool Player::_Update(float a_fDelta)
 {
 	Move(a_fDelta);
@@ -62,8 +67,24 @@ void Player::Move(float a_fDeltaTime)
 	if (IsKeyDown(eKey::S)) { fY += fAdd; }
 	if (IsKeyDown(eKey::W)) { fY -= fAdd; }
 
+	if (fX == 0 && fY == 0) { return; }
+
 	rt.x += fX;
 	rt.y += fY;
+
+	if (GameMng()->MoveCheck(m_refBomb) == false)
+	{
+		rt.x -= fX;
+		rt.y -= fY;
+	}
+
+	if (m_refBomb != nullptr)
+	{
+		if (m_refBomb->IsCross(this) == false)
+		{
+			m_refBomb = nullptr;
+		}
+	}
 }
 
 void Player::BombCheck()
@@ -73,9 +94,35 @@ void Player::BombCheck()
 	if (IsKeyDown(eKey::Space))
 	{
 		COORD c = rt.Center();
-		if (GameMng()->AddBomb(c.X, c.Y) == true)
+
+		auto* pBomb = GameMng()->AddBomb(c.X, c.Y);
+		if (pBomb != nullptr)
 		{
 			++m_nPutBombCount;
+			m_refBomb = pBomb; // 내가 서있는 자리에 놓일 폭탄
 		}
 	}
+}
+
+void Player::ResetBomb(Object* a_refBomb)
+{
+	// 터진 폭탄이 위치 관련 캐싱한 폭탄이라면 비움
+	if (m_refBomb == a_refBomb)
+	{
+		m_refBomb = nullptr;
+	}
+
+	// 폭탄 놓을 갯수 증가
+	--m_nPutBombCount;
+
+	if (m_nPutBombCount < 0)
+	{
+		m_nPutBombCount = 0;
+	}
+}
+
+bool Player::Explosived()
+{
+	GameMng()->Die(this);
+	return false;
 }
